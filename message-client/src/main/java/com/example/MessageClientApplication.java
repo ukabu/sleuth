@@ -43,6 +43,10 @@ public class MessageClientApplication {
 		return span -> true;
 	}
 
+	@Bean RestTemplate restTemplate() {
+		return new RestTemplate();
+	}
+
 	public static void main(String[] args) {
 		SpringApplication.run(MessageClientApplication.class, args);
 	}
