@@ -1,3 +1,5 @@
+ci/private.yml
+
 ### Maven template
 target/
 pom.xml.tag
