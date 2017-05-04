@@ -1,7 +1,6 @@
 #! /bin/bash
-set -e +x
+set -ex
 pushd sleuth
-  echo "Running tests"
   ./mvnw test
 popd
 exit 0
