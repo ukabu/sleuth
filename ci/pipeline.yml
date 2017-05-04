@@ -25,14 +25,14 @@ jobs:
     params:
       MAVEN_OPTS: {{maven-opts}}
       MAVEN_CONFIG: {{maven-config}}
-      
+
 - name: deploy
   plan:
   - get: sleuth
     trigger: true
     passed: [test]
   - task: package
-    file: sleuth/ci/package.yml
+    file: sleuth/ci/tasks/package.yml
     params:
       MAVEN_OPTS: {{maven-opts}}
       MAVEN_CONFIG: {{maven-config}}
