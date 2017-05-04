@@ -22,3 +22,20 @@ jobs:
     trigger: true
   - task: test
     file: sleuth/ci/tasks/test.yml
+    params:
+      MAVEN_OPTS: {{maven-opts}}
+      MAVEN_CONFIG: {{maven-config}}
+      
+- name: deploy
+  plan:
+  - get: sleuth
+    trigger: true
+    passed: [test]
+  - task: package
+    file: sleuth/ci/package.yml
+    params:
+      MAVEN_OPTS: {{maven-opts}}
+      MAVEN_CONFIG: {{maven-config}}
+  # - put: deploy-cf
+  #   params:
+  #     manifest: package-output/manifest.yml

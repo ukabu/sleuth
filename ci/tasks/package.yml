@@ -10,9 +10,12 @@ image_resource:
 inputs:
 - name: sleuth
 
+outputs:
+- name: package-output
+
 params:
   MAVEN_OPTS: ""
   MAVEN_CONFIG: ""
-
+  
 run:
-  path: sleuth/ci/tasks/test.sh
+  path: sleuth/ci/tasks/package.sh

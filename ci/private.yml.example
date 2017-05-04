@@ -1,0 +1,7 @@
+cf-api: # api endpoint for CF ex: https://api.run.pivotal.io
+cf-user: # username to use for cf push ex: ci.user@example.com
+cf-password: # password for user
+cf-org: # org
+cf-space: # space
+maven-opts: # JVM args for maven
+maven-config: # maven additional args ex: -s my-setting.xml
