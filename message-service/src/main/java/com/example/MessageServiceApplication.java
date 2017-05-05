@@ -8,8 +8,9 @@ import org.springframework.cloud.sleuth.Sampler;
 import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.cloud.stream.messaging.Source;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.EnableAspectJAutoProxy;
-import org.springframework.integration.annotation.*;
+import org.springframework.integration.annotation.Gateway;
+import org.springframework.integration.annotation.IntegrationComponentScan;
+import org.springframework.integration.annotation.MessagingGateway;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,7 +21,6 @@ import java.util.List;
 import java.util.Map;
 
 @EnableDiscoveryClient
-@EnableAspectJAutoProxy(proxyTargetClass = true)
 @IntegrationComponentScan
 @SpringBootApplication
 @EnableBinding(Source.class)

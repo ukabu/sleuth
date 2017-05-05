@@ -1,22 +1,19 @@
 ---
+buildpack: java_buildpack
+memory: 512M
+
 applications:
-- name: message-client
-  memory: 256M
-  host: sleuth-message-client
+- name: sleuth-message-client
   path: message-client/target/message-client.jar
-- name: message-service
-  memory: 256M
-  host: sleuth-message-service
+  services:
+  - sleuth-rabbitmq
+  - service-registry
+- name: sleuth-message-service
   path: message-service/target/message-service.jar
-- name: eureka-service
-  memory: 256M
-  host: sleuth-eureka-service
-  path: eureka-service/target/eureka-service.jar
-- name: sleuth-basic
-  memory: 256M
-  host: sleuth-sleuth-basic
+  services:
+  - sleuth-rabbitmq
+  - service-registry
+- name: sleuth-sleuth-basic
   path: sleuth-basic/target/sleuth-basic.jar
-- name: zipkin-query-service
-  memory: 256M
-  host: sleuth-zipkin-query-service
+- name: sleuth-zipkin-query-service
   path: zipkin-query-service/target/zipkin-query-service.jar
