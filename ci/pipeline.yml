@@ -9,7 +9,7 @@ resources:
 - name: deploy-cf
   type: cf
   source:
-    api: {{cf-api}}
+    api: {{pcf-api}}
     username: {{pcf-user}}
     password: {{pcf-password}}
     organization: {{pcf-org}}
