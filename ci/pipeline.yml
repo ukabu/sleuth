@@ -6,14 +6,14 @@ resources:
     uri: https://github.com/ukabu/sleuth.git
     branch: master
 
-# - name: deploy-cf
-#   type: cf
-#   source:
-#     api: {{cf-api}}
-#     username: {{cf-user}}
-#     password: {{cf-password}}
-#     organization: {{cf-org}}
-#     space: {{cf-space}}
+- name: deploy-cf
+  type: cf
+  source:
+    api: {{cf-api}}
+    username: {{pcf-user}}
+    password: {{pcf-password}}
+    organization: {{pcf-org}}
+    space: {{pcf-space}}
 
 jobs:
 - name: test
@@ -36,6 +36,14 @@ jobs:
     params:
       MAVEN_OPTS: {{maven-opts}}
       MAVEN_CONFIG: {{maven-config}}
-  # - put: deploy-cf
-  #   params:
-  #     manifest: package-output/manifest.yml
+  - put: deploy-cf
+    params:
+      manifest: package-output/manifest.yml
+
+- name: stop-apps
+  plan:
+  - get: sleuth
+    passed: [deploy]
+    trigger: true
+  - task: stop-apps
+    file: sleuth/ci/tasks/stop-apps.yml
