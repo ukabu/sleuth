@@ -1,6 +1,6 @@
 ---
 buildpack: java_buildpack
-memory: 512M
+memory: 768M
 
 applications:
 - name: sleuth-message-client
@@ -13,7 +13,7 @@ applications:
   services:
   - sleuth-rabbitmq
   - service-registry
-- name: sleuth-sleuth-basic
-  path: sleuth-basic/target/sleuth-basic.jar
 - name: sleuth-zipkin-query-service
   path: zipkin-query-service/target/zipkin-query-service.jar
+  services:
+  - sleuth-rabbitmq

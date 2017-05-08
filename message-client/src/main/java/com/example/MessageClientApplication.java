@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.cloud.netflix.feign.EnableFeignClients;
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.cloud.sleuth.Sampler;
@@ -27,7 +28,7 @@ import java.util.Map;
 
 @EnableDiscoveryClient
 @EnableFeignClients
-@EnableAspectJAutoProxy(proxyTargetClass = true)
+//@EnableAspectJAutoProxy(proxyTargetClass = true)
 @EnableBinding(Sink.class)
 @IntegrationComponentScan
 @SpringBootApplication
@@ -43,6 +44,7 @@ public class MessageClientApplication {
 		return span -> true;
 	}
 
+	@LoadBalanced
 	@Bean RestTemplate restTemplate() {
 		return new RestTemplate();
 	}
@@ -87,7 +89,7 @@ class MessageClientRestController {
 	@RequestMapping("/template")
 	ResponseEntity<Map<String, String>> template() {
 
-		String url = "http://" + MessageClientApplication.ZIPKIN_CLIENT_B;
+		String url = "//" + MessageClientApplication.ZIPKIN_CLIENT_B;
 
 		ParameterizedTypeReference<Map<String, String>> ptr =
 				new ParameterizedTypeReference<Map<String, String>>() {
