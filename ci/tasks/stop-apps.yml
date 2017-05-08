@@ -9,7 +9,6 @@ image_resource:
 
 inputs:
 - name: sleuth
-- name: package-output
 
 run:
   path: sleuth/ci/tasks/stop-apps.sh
