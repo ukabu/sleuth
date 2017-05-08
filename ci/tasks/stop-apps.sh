@@ -3,7 +3,7 @@
 set -e
 
 set +x
-cf login -a {{pcf-api}} -u {{pcf-username}} -p {{pcf-password}} -o {{pcf-org}} -s {{pcf-space}}
+cf login -a {{pcf-api}} -u {{pcf-user}} -p {{pcf-password}} -o {{pcf-org}} -s {{pcf-space}}
 set -x
 
 cf stop sleuth-message-client

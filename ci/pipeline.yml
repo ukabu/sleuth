@@ -47,3 +47,9 @@ jobs:
     trigger: true
   - task: stop-apps
     file: sleuth/ci/tasks/stop-apps.yml
+    params:
+      PCF_API: {{pcf-api}}
+      PCF_ORG: {{pcf-org}}
+      PCF_SPACE: {{pcf-space}}
+      PCF_USER: {{pcf-user}}
+      PCF_PASWORD: {{pcf-password}}
