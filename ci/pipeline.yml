@@ -52,4 +52,4 @@ jobs:
       PCF_ORG: {{pcf-org}}
       PCF_SPACE: {{pcf-space}}
       PCF_USER: {{pcf-user}}
-      PCF_PASWORD: {{pcf-password}}
+      PCF_PASSWORD: {{pcf-password}}
