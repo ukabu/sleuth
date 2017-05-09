@@ -1,0 +1,14 @@
+server.port: 8083
+
+spring:
+  application:
+    name: message-service
+  zipkin:
+    locator:
+      discovery:
+        enabled: true
+
+security.basic.enabled: false
+management.security.enabled: false
+
+logging.level.org.springframework.web.servlet.DispatcherServlet: DEBUG
