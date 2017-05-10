@@ -17,5 +17,5 @@ management:
   security:
     enabled: false
 
-
+spring.cloud.stream.bindings.input.destination: sleuth-test
 logging.level.org.springframework.web.servlet.DispatcherServlet: DEBUG

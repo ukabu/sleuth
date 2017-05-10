@@ -14,7 +14,9 @@ import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.cloud.netflix.feign.EnableFeignClients;
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.cloud.sleuth.Sampler;
+import org.springframework.cloud.sleuth.SpanAccessor;
 import org.springframework.cloud.stream.annotation.EnableBinding;
+import org.springframework.cloud.stream.annotation.StreamListener;
 import org.springframework.cloud.stream.messaging.Sink;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
@@ -23,6 +25,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.integration.annotation.*;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -32,10 +35,9 @@ import java.util.Map;
 
 @EnableDiscoveryClient
 @EnableFeignClients
-//@EnableAspectJAutoProxy(proxyTargetClass = true)
-@EnableBinding(Sink.class)
 @IntegrationComponentScan
 @SpringBootApplication
+@EnableBinding(Sink.class)
 public class MessageClientApplication {
 	public static final String SLEUTH_TEST = "sleuth-test";
 	private Logger logger = LoggerFactory.getLogger(MessageClientApplication.class);
@@ -59,15 +61,19 @@ public class MessageClientApplication {
 		SpringApplication.run(MessageClientApplication.class, args);
 	}
 
-	@RabbitListener(queues = SLEUTH_TEST)
+}
+
+@Component
+class MessageProcessor {
+	@Autowired
+	private SpanAccessor spanAccessor;
+	private Logger logger = LoggerFactory.getLogger(MessageProcessor.class);
+
+	@StreamListener(Sink.INPUT)
 	public void process(String message) {
-		logger.info("Received message : {}", message);
+		logger.info("Received message : {} (span : {}, trace :  {})", message, spanAccessor.getCurrentSpan().getSpanId(), spanAccessor.getCurrentSpan().getTraceId());
 	}
 
-	@Bean
-	public Queue queue() {
-		return new Queue(SLEUTH_TEST, false);
-	}
 }
 
 @FeignClient(serviceId = MessageClientApplication.ZIPKIN_CLIENT_B)
