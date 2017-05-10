@@ -1,5 +1,7 @@
 package com.example;
 
+import org.springframework.amqp.core.Queue;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -25,6 +27,7 @@ import java.util.Map;
 @SpringBootApplication
 @EnableBinding(Source.class)
 public class MessageServiceApplication {
+    static String SLEUTH_TEST = "sleuth-test";
 
 	@Bean
 	Sampler sampler() {
@@ -34,14 +37,11 @@ public class MessageServiceApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(MessageServiceApplication.class, args);
 	}
-}
 
-
-@MessagingGateway
-interface ReplySender {
-
-	@Gateway(requestChannel = Source.OUTPUT)
-	void sendMessage(String msg);
+	@Bean
+    Queue queue() {
+	    return new Queue(SLEUTH_TEST, false);
+    }
 }
 
 
@@ -49,7 +49,7 @@ interface ReplySender {
 class MessageServiceRestController {
 
 	@Autowired
-	ReplySender replySender;
+    RabbitTemplate replySender;
 
 	@RequestMapping("/")
 	Map<String, String> message(HttpServletRequest httpRequest) {
@@ -70,7 +70,7 @@ class MessageServiceRestController {
 				.filter(h -> httpRequest.getHeader(h) != null)
 				.forEach(h -> response.put(h, httpRequest.getHeader(h)));
 
-		this.replySender.sendMessage(value);
+		this.replySender.convertAndSend(MessageServiceApplication.SLEUTH_TEST, value);
 
 		return response;
 	}

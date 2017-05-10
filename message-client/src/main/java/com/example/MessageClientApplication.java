@@ -2,6 +2,10 @@ package com.example;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.amqp.core.Queue;
+import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -33,6 +37,8 @@ import java.util.Map;
 @IntegrationComponentScan
 @SpringBootApplication
 public class MessageClientApplication {
+	public static final String SLEUTH_TEST = "sleuth-test";
+	private Logger logger = LoggerFactory.getLogger(MessageClientApplication.class);
 
 	/**
 	 * the service with which we're communicating
@@ -52,16 +58,15 @@ public class MessageClientApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(MessageClientApplication.class, args);
 	}
-}
 
-@MessageEndpoint
-class MessageProcessor {
+	@RabbitListener(queues = SLEUTH_TEST)
+	public void process(String message) {
+		logger.info("Received message : {}", message);
+	}
 
-	private Log log = LogFactory.getLog(getClass());
-
-	@ServiceActivator(inputChannel = Sink.INPUT)
-	public void onMessage(String msg) {
-		this.log.info("received message: '" + msg + "'.");
+	@Bean
+	public Queue queue() {
+		return new Queue(SLEUTH_TEST, false);
 	}
 }
 
