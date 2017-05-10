@@ -26,6 +26,7 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-jdbc</artifactId>
         </dependency>-->
+        <dependency><groupId>io.zipkin.java</groupId><artifactId>zipkin-autoconfigure-ui</artifactId><scope>runtime</scope></dependency>
     </dependencies>
     <build>
         <plugins>
