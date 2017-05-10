@@ -1,6 +1,8 @@
 ---
 buildpack: java_buildpack
 memory: 768M
+env:
+  JAVA_OPTS: -Djava.security.egd=file:///dev/urandom
 
 applications:
 - name: sleuth-message-client
