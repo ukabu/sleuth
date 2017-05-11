@@ -4,4 +4,4 @@ cf-password: # password for user
 cf-org: # org
 cf-space: # space
 maven-opts: # JVM args for maven
-maven-config: # maven additional args ex: -s my-setting.xml
+maven-config: # # location of custom maven settings.xml file. it will be copied into ~/.m2/settings.xml

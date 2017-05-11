@@ -1,5 +1,7 @@
 #!/bin/bash
 
+sleuth/ci/tasks/cp-maven-config.sh
+
 set -ex
 
 pushd sleuth

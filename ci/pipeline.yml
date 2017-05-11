@@ -24,7 +24,7 @@ jobs:
     file: sleuth/ci/tasks/test.yml
     params:
       MAVEN_OPTS: {{maven-opts}}
-      MAVEN_CONFIG: {{maven-config}}
+      MAVEN_CONFIG_FILE: {{maven-config-file}}
 
 - name: deploy
   plan:
@@ -35,7 +35,7 @@ jobs:
     file: sleuth/ci/tasks/package.yml
     params:
       MAVEN_OPTS: {{maven-opts}}
-      MAVEN_CONFIG: {{maven-config}}
+      MAVEN_CONFIG_FILE: {{maven-config-file}}
   - put: deploy-cf
     params:
       manifest: package-output/manifest.yml
@@ -57,7 +57,7 @@ jobs:
     file: sleuth/ci/tasks/smoketests.yml
     params:
       MAVEN_OPTS: {{maven-opts}}
-      MAVEN_CONFIG: {{maven-config}}
+      MAVEN_CONFIG_FILE: {{maven-config-file}}
 
 - name: stop-apps
   plan:

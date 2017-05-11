@@ -12,7 +12,7 @@ inputs:
 
 params:
   MAVEN_OPTS: ""
-  MAVEN_CONFIG: ""
+  MAVEN_CONFIG_FILE: ""
 
 run:
   path: sleuth/ci/tasks/test.sh
