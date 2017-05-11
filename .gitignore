@@ -1,3 +1,4 @@
+.env
 ci/private.yml
 
 ### Maven template

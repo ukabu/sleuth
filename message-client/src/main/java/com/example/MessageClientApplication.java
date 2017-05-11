@@ -14,6 +14,7 @@ import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.cloud.netflix.feign.EnableFeignClients;
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.cloud.sleuth.Sampler;
+import org.springframework.cloud.sleuth.Span;
 import org.springframework.cloud.sleuth.SpanAccessor;
 import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.cloud.stream.annotation.StreamListener;
@@ -31,6 +32,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.HashMap;
 import java.util.Map;
 
 @EnableDiscoveryClient
@@ -94,6 +96,9 @@ class MessageClientRestController {
 	private RestTemplate restTemplate;
 
 	@Autowired
+	private SpanAccessor spanAccessor;
+
+	@Autowired
 	private RestMessageReader restReader;
 
 
@@ -109,10 +114,13 @@ class MessageClientRestController {
 		ResponseEntity<Map<String, String>> responseEntity =
 				this.restTemplate.exchange(url, HttpMethod.GET, null, ptr);
 
+		HashMap<String, String> response = new HashMap<>(responseEntity.getBody());
+		response.put("span", Span.idToHex(spanAccessor.getCurrentSpan().getSpanId()));
+
 		return ResponseEntity
 				.ok()
 				.contentType(responseEntity.getHeaders().getContentType())
-				.body(responseEntity.getBody());
+				.body(response);
 	}
 
 	@RequestMapping("/feign")
