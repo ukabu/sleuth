@@ -13,7 +13,6 @@
     <artifactId>tracing</artifactId>
     <packaging>pom</packaging>
     <modules>
-        <module>sleuth-basic</module>
         <module>message-client</module>
         <module>message-service</module>
         <module>zipkin-query-service</module>
