@@ -1,0 +1,24 @@
+---
+platform: linux
+
+image_resource:
+  type: docker-image
+  source:
+    repository: pivotalservices/docker-concourse-cf-tools
+    tag: "latest"
+
+inputs:
+- name: sleuth
+
+outputs:
+- name: apps-urls
+
+params:
+  PCF_API: ""
+  PCF_ORG: ""
+  PCF_SPACE: ""
+  PCF_USER: ""
+  PCF_PASSWORD: ""
+
+run:
+  path: sleuth/ci/tasks/get-apps-urls.sh

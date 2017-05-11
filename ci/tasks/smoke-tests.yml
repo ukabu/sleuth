@@ -4,23 +4,18 @@ platform: linux
 image_resource:
   type: docker-image
   source:
-    repository: pivotalservices/docker-concourse-cf-tools
-    tag: "latest"
+    repository: java
+    tag: "8"
 
 inputs:
 - name: sleuth
 
 outputs:
-- name: package-output
+- name: smoke-tests-output
 
 params:
   MAVEN_OPTS: ""
   MAVEN_CONFIG: ""
-  PCF_API: ""
-  PCF_ORG: ""
-  PCF_SPACE: ""
-  PCF_USER: ""
-  PCF_PASSWORD: ""
 
 run:
   path: sleuth/ci/tasks/smoke-tests.sh

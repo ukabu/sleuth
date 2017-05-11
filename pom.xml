@@ -18,8 +18,15 @@
         <module>message-service</module>
         <module>zipkin-query-service</module>
         <module>eureka-service</module>
-        <module>smoketests</module>
     </modules>
+    <profiles>
+        <profile>
+            <id>smoke-tests</id>
+            <modules>
+                <module>smoketests</module>
+            </modules>
+        </profile>
+    </profiles>
     <properties>
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
