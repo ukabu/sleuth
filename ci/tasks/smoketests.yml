@@ -19,4 +19,4 @@ params:
   MAVEN_CONFIG: ""
 
 run:
-  path: sleuth/ci/tasks/smoke-tests.sh
+  path: sleuth/ci/tasks/smoketests.sh

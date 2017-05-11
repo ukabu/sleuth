@@ -40,10 +40,29 @@ jobs:
     params:
       manifest: package-output/manifest.yml
 
+- name: smoketests
+  plan:
+  - get: sleuth
+    trigger: true
+    passed: [deploy]
+  - task: get-apps-urls
+    file: sleuth/ci/tasks/get-apps-urls.yml
+    params:
+      PCF_API: {{pcf-api}}
+      PCF_ORG: {{pcf-org}}
+      PCF_SPACE: {{pcf-space}}
+      PCF_USER: {{pcf-user}}
+      PCF_PASSWORD: {{pcf-password}}
+  - task: smoketests
+    file: sleuth/ci/tasks/smoketests.yml
+    params:
+      MAVEN_OPTS: {{maven-opts}}
+      MAVEN_CONFIG: {{maven-config}}
+
 - name: stop-apps
   plan:
   - get: sleuth
-    passed: [deploy]
+    passed: [deploy,smoketests]
     trigger: true
   - task: stop-apps
     file: sleuth/ci/tasks/stop-apps.yml
