@@ -58,13 +58,8 @@ jobs:
     params:
       MAVEN_OPTS: {{maven-opts}}
       MAVEN_CONFIG_FILE: {{maven-config-file}}
-
-- name: stop-apps
-  plan:
-  - get: sleuth
-    passed: [smoketests]
-    trigger: true
-  - task: stop-apps
+  ensure:
+    task: stop-apps
     file: sleuth/ci/tasks/stop-apps.yml
     params:
       PCF_API: {{pcf-api}}
