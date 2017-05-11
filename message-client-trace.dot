@@ -1,0 +1,26 @@
+digraph G {
+  node [shape=plaintext];
+
+  edge [color=blue];
+  "client" -> "message-client" [label="get /message/template"];
+  "message-client" -> "client" [label="{message: xyz, span: aaa}"];
+  "message-client" -> "message-service" [label="get /"];
+  "message-service" -> "message-client" [label="{message: xyz}"];
+
+  {rank=same; "message-client" "message-service"}
+
+  subgraph clusterStream {
+    edge [color=green];
+    "rabbit-mq (stream)";
+    "message-service" -> "rabbit-mq (stream)" [label="send 'message'"];
+    "rabbit-mq (stream)" -> "message-client" [label="deliver 'message'"];
+  }
+
+  subgraph clusterSleuth {
+    edge [color=orange]
+    "message-client" -> "rabbit-mq (sleuth)" [label="get /message/template\nspan: aaa\ntrace: 1"]
+    "message-service" -> "rabbit-mq (sleuth)" [label="get /\nspan: aaa\ntrace: 2"]
+    "message-service" -> "rabbit-mq (sleuth)" [label="send 'message'\nspan: aaa\ntrace: 3"]
+    "message-client" -> "rabbit-mq (sleuth)" [label="received 'message'\nspan: aaa\ntrace:4"]
+  }
+}
