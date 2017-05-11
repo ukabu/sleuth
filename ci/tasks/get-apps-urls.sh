@@ -10,8 +10,8 @@ SLEUTH_MESSAGE_CLIENT_ENDPOINT=$(cf app sleuth-message-client | grep -oP "(route
 SLEUTH_MESSAGE_SERVICE_ENDPOINT=$(cf app sleuth-message-service | grep -oP "(routes|urls)\:\s+\K\S+")
 SLEUTH_ZIPKIN_SERVER_ENDPOINT=$(cf app sleuth-zipkin-query-service | grep -oP "(routes|urls)\:\s+\K\S+")
 
-echo "export SLEUTH_MESSAGE_CLIENT_ENDPOINT=https://$SLEUTH_MESSAGE_CLIENT_ENDPOINT" > ./.env
-echo "export SLEUTH_MESSAGE_SERVICE_ENDPOINT=https://$SLEUTH_MESSAGE_SERVICE_ENDPOINT" >> ./.env
-echo "export SLEUTH_ZIPKIN_SERVER_ENDPOINT=https://$SLEUTH_ZIPKIN_SERVER_ENDPOINT" >> ./.env
+echo "export SLEUTH_MESSAGE_CLIENT_ENDPOINT=https://$SLEUTH_MESSAGE_CLIENT_ENDPOINT" > apps-urls/.env
+echo "export SLEUTH_MESSAGE_SERVICE_ENDPOINT=https://$SLEUTH_MESSAGE_SERVICE_ENDPOINT" >> apps-urls/.env
+echo "export SLEUTH_ZIPKIN_SERVER_ENDPOINT=https://$SLEUTH_ZIPKIN_SERVER_ENDPOINT" >> apps-urls/.env
 
 exit 0

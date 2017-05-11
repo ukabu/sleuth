@@ -9,6 +9,7 @@ image_resource:
 
 inputs:
 - name: sleuth
+- name: apps-urls
 
 outputs:
 - name: smoke-tests-output

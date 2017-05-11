@@ -4,7 +4,7 @@
 
 set -ex
 
-pushd sleuth/smoke-tests
+pushd sleuth/smoketests
   ./mvnw verify
 popd
 

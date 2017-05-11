@@ -21,7 +21,7 @@
     </modules>
     <profiles>
         <profile>
-            <id>smoke-tests</id>
+            <id>smoketests</id>
             <modules>
                 <module>smoketests</module>
             </modules>
