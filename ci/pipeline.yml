@@ -62,7 +62,7 @@ jobs:
 - name: stop-apps
   plan:
   - get: sleuth
-    passed: [deploy,smoketests]
+    passed: [smoketests]
     trigger: true
   - task: stop-apps
     file: sleuth/ci/tasks/stop-apps.yml
