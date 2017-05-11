@@ -7,7 +7,7 @@ sleuth/ci/tasks/cp-maven-config.sh
 set -ex
 
 pushd sleuth/smoketests
-  ./mvnw verify
+  ./mvnw test
 popd
 
 exit 0
