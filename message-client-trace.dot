@@ -22,5 +22,7 @@ digraph G {
     "message-service" -> "rabbit-mq (sleuth)" [label="get /\nspan: aaa\ntrace: 2"]
     "message-service" -> "rabbit-mq (sleuth)" [label="send 'message'\nspan: aaa\ntrace: 3"]
     "message-client" -> "rabbit-mq (sleuth)" [label="received 'message'\nspan: aaa\ntrace:4"]
+
+    "rabbit-mq (sleuth)" -> "zipkin-query-service"
   }
 }
