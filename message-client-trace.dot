@@ -2,18 +2,18 @@ digraph G {
   node [shape=plaintext];
 
   edge [color=blue];
-  "client" -> "message-client" [label="get /message/template"];
-  "message-client" -> "client" [label="{message: xyz, span: aaa}"];
-  "message-client" -> "message-service" [label="get /"];
-  "message-service" -> "message-client" [label="{message: xyz}"];
+  "client" -> "message-client" [label="1: get /message/template"];
+  "message-client" -> "client" [label="4: {message: xyz, span: aaa}"];
+  "message-client" -> "message-service" [label="2: get /"];
+  "message-service" -> "message-client" [label="3: {message: xyz}"];
 
   {rank=same; "message-client" "message-service"}
 
   subgraph clusterStream {
     edge [color=green];
     "rabbit-mq (stream)";
-    "message-service" -> "rabbit-mq (stream)" [label="send 'message'"];
-    "rabbit-mq (stream)" -> "message-client" [label="deliver 'message'"];
+    "message-service" -> "rabbit-mq (stream)" [label="3.1: send 'message'"];
+    "rabbit-mq (stream)" -> "message-client" [label="3.2: deliver 'message'"];
   }
 
   subgraph clusterSleuth {
