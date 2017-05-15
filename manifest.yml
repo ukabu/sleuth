@@ -8,14 +8,14 @@ applications:
 - name: sleuth-message-client
   path: message-client/target/message-client.jar
   services:
-  - sleuth-rabbitmq
+  - rabbitmq
   - service-registry
 - name: sleuth-message-service
   path: message-service/target/message-service.jar
   services:
-  - sleuth-rabbitmq
+  - rabbitmq
   - service-registry
 - name: sleuth-zipkin-query-service
   path: zipkin-query-service/target/zipkin-query-service.jar
   services:
-  - sleuth-rabbitmq
+  - rabbitmq
